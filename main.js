@@ -8,11 +8,14 @@ const processData = async () => {
 
     console.log(data[1]);
 
-    const years = data.map(d => d.year);
+    const years = data.map(d => new Date(d.Year, 1, 1));
     const minX = d3.min(years);
     const maxX = d3.max(years);
 
-    const xScale = d3.scaleLinear()
+    minX.setMonth(minX.getMonth() - 3)
+    maxX.setMonth(maxX.getMonth() + 3)
+
+    const xScale = d3.scaleTime()
     .domain([minX, maxX])
     .range([0, width]);
 
@@ -27,6 +30,24 @@ const processData = async () => {
     const yScale = d3.scaleTime()
     .domain([0, maxY])
     .range([height, 0]);
+
+    const svg = d3.select("#graph")
+      .append("svg")
+      .attr("width", width + 100)
+      .attr("height", height + 50);
+
+      const xAxis = d3.axisBottom(xScale);
+      svg.append("g")
+          .attr("transform", "translate(60, 430)")
+          .attr("id", "x-axis")
+          .call(xAxis);
+    
+      const yAxis = d3.axisLeft(yScale);
+    
+      svg.append("g")
+        .attr("transform", "translate(60, 30)")
+        .attr("id", "y-axis")
+        .call(yAxis);
 }
 
 processData();
