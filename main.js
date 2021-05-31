@@ -6,8 +6,6 @@ const processData = async () => {
     const res = await fetch(endpoint);
     const data = await res.json();
 
-    console.log(data[1]);
-
     const years = data.map(d => new Date(d.Year, 1, 1));
     const minX = d3.min(years);
     const maxX = d3.max(years);
@@ -24,7 +22,6 @@ const processData = async () => {
         const today = new Date();
         return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, min, sec)
     });
-    console.log(times[1]);
     const maxY = d3.max(times);
 
     const yScale = d3.scaleTime()
