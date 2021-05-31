@@ -24,7 +24,7 @@ const processData = async () => {
     });
     const maxY = d3.max(times);
 
-    const yScale = d3.scaleTime()
+    const yScale = d3.scaleLinear()
     .domain([0, maxY])
     .range([height, 0]);
 
