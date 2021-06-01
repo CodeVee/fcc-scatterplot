@@ -6,12 +6,8 @@ const processData = async () => {
     const res = await fetch(endpoint);
     const data = await res.json();
 
-    const years = data.map(d => new Date(d.Year, 1, 1));
-    const minX = d3.min(years);
-    const maxX = d3.max(years);
-
-    minX.setMonth(minX.getMonth() - 3)
-    maxX.setMonth(maxX.getMonth() + 3)
+    const minX = d3.min(data , d => d.Year - 1);
+    const maxX = d3.max(data, d => d.Year + 1);
 
     const xScale = d3.scaleTime()
     .domain([minX, maxX])
@@ -25,21 +21,21 @@ const processData = async () => {
     const maxY = d3.max(times);
 
     const yScale = d3.scaleLinear()
-    .domain([0, maxY])
-    .range([height, 0]);
+    .range([0, height]);
 
     const svg = d3.select("#graph")
       .append("svg")
       .attr("width", width + 100)
       .attr("height", height + 50);
 
-      const xAxis = d3.axisBottom(xScale);
+      const xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d'));
       svg.append("g")
           .attr("transform", "translate(60, 430)")
           .attr("id", "x-axis")
           .call(xAxis);
     
-      const yAxis = d3.axisLeft(yScale);
+      const timeFormat = d3.timeFormat('%M:%S');
+      const yAxis = d3.axisLeft(yScale).tickFormat(timeFormat);
     
       svg.append("g")
         .attr("transform", "translate(60, 30)")
