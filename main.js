@@ -21,6 +21,7 @@ const processData = async () => {
     const maxY = d3.max(times);
 
     const yScale = d3.scaleLinear()
+    .domain(d3.extent(times))
     .range([0, height]);
 
     const svg = d3.select("#graph")
