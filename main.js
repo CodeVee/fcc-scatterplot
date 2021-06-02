@@ -25,6 +25,13 @@ const processData = async () => {
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
+    const div = d3
+            .select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .attr('id', 'tooltip')
+            .style('opacity', 0);
+
     const svg = d3.select("#graph")
       .append("svg")
       .attr("width", width + 100)
@@ -43,7 +50,7 @@ const processData = async () => {
        .style('fill', d => {
         return color(d.Doping !== '');
       })
-      .on('mouseover', d => {
+      .on('mouseover', (e, d) => {
         div.style('opacity', 0.9);
         div.attr('data-year', d.Year);
         div
@@ -58,10 +65,8 @@ const processData = async () => {
               timeFormat(d.Time) +
               (d.Doping ? '<br/><br/>' + d.Doping : '')
           )
-          .style('left', d3.event.pageX + 'px')
-          .style('top', d3.event.pageY - 28 + 'px');
       })
-      .on('mouseout', function () {
+      .on('mouseout', () => {
         div.style('opacity', 0);
       });
 
