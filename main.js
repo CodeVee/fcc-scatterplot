@@ -18,7 +18,6 @@ const processData = async () => {
         const today = new Date();
         return new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, min, sec)
     });
-    const maxY = d3.max(times);
 
     const yScale = d3.scaleLinear()
     .domain(d3.extent(times))
@@ -28,6 +27,17 @@ const processData = async () => {
       .append("svg")
       .attr("width", width + 100)
       .attr("height", height + 50);
+
+      svg.selectAll("circle")
+       .data(data)
+       .enter()
+       .append("circle")
+       .attr("cx", d => xScale(d.Year))
+       .attr("cy", (d, i) => yScale(times[i]))
+       .attr("r", 5)
+       .attr("class", "dot")
+       .attr("data-xvalue", d => d.Year)
+       .attr("data-yvalue", (d, i) => times[i].toISOString());
 
       const xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d'));
       svg.append("g")
