@@ -70,6 +70,39 @@ const processData = async () => {
         div.style('opacity', 0);
       });
 
+      const legendContainer = svg.append('g').attr('id', 'legend');
+
+      const legend = legendContainer
+            .selectAll('#legend')
+            .data(color.domain())
+            .enter()
+            .append('g')
+            .attr('class', 'legend-label')
+            .attr('transform', (d, i) => {
+            return 'translate(0,' + (height / 2 - i * 20) + ')';
+            });
+
+        legend
+            .append('rect')
+            .attr('x', width - 18)
+            .attr('width', 18)
+            .attr('height', 18)
+            .style('fill', color);
+
+        legend
+            .append('text')
+            .attr('x', width - 24)
+            .attr('y', 9)
+            .attr('dy', '.35em')
+            .style('text-anchor', 'end')
+            .text(d => {
+            if (d) {
+                return 'Riders with doping allegations';
+            } else {
+                return 'No doping allegations';
+            }
+            });
+
       const xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d'));
       svg.append("g")
           .attr("transform", "translate(60, 430)")
