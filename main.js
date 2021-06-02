@@ -23,6 +23,8 @@ const processData = async () => {
     .domain(d3.extent(times))
     .range([0, height]);
 
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
+
     const svg = d3.select("#graph")
       .append("svg")
       .attr("width", width + 100)
@@ -37,7 +39,31 @@ const processData = async () => {
        .attr("r", 5)
        .attr("class", "dot")
        .attr("data-xvalue", d => d.Year)
-       .attr("data-yvalue", (d, i) => times[i].toISOString());
+       .attr("data-yvalue", (d, i) => times[i])
+       .style('fill', d => {
+        return color(d.Doping !== '');
+      })
+      .on('mouseover', d => {
+        div.style('opacity', 0.9);
+        div.attr('data-year', d.Year);
+        div
+          .html(
+            d.Name +
+              ': ' +
+              d.Nationality +
+              '<br/>' +
+              'Year: ' +
+              d.Year +
+              ', Time: ' +
+              timeFormat(d.Time) +
+              (d.Doping ? '<br/><br/>' + d.Doping : '')
+          )
+          .style('left', d3.event.pageX + 'px')
+          .style('top', d3.event.pageY - 28 + 'px');
+      })
+      .on('mouseout', function () {
+        div.style('opacity', 0);
+      });
 
       const xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d'));
       svg.append("g")
