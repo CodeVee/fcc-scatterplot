@@ -44,6 +44,7 @@ const processData = async () => {
        .attr("cx", d => xScale(d.Year))
        .attr("cy", (d, i) => yScale(times[i]))
        .attr("r", 5)
+       .attr("transform", "translate(60, 30)")
        .attr("class", "dot")
        .attr("data-xvalue", d => d.Year)
        .attr("data-yvalue", (d, i) => times[i])
@@ -51,6 +52,7 @@ const processData = async () => {
         return color(d.Doping !== '');
       })
       .on('mouseover', (e, d) => {
+        const i = data.indexOf(d);
         div.style('opacity', 0.9);
         div.attr('data-year', d.Year);
         div
@@ -62,7 +64,7 @@ const processData = async () => {
               'Year: ' +
               d.Year +
               ', Time: ' +
-              timeFormat(d.Time) +
+              timeFormat(times[i]) +
               (d.Doping ? '<br/><br/>' + d.Doping : '')
           )
       })
