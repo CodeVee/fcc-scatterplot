@@ -26,7 +26,7 @@ const processData = async () => {
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
     const div = d3
-            .select('body')
+            .select('#main')
             .append('div')
             .attr('class', 'tooltip')
             .attr('id', 'tooltip')
