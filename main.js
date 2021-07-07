@@ -53,7 +53,7 @@ const processData = async () => {
       })
       .on('mouseover', (e, d) => {
         const i = data.indexOf(d);
-        div.style('opacity', 0.95);
+        div.style('opacity', 0.9);
         div.attr('data-year', d.Year);
         div
           .html(
