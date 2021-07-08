@@ -48,9 +48,7 @@ const processData = async () => {
        .attr("class", "dot")
        .attr("data-xvalue", d => d.Year)
        .attr("data-yvalue", (d, i) => times[i])
-       .style('fill', d => {
-        return color(d.Doping !== '');
-      })
+       .style('fill', d => color(d.Doping !== ''))
       .on('mouseover', (e, d) => {
         const i = data.indexOf(d);
         div.style('opacity', 0.9);
