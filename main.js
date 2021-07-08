@@ -55,9 +55,6 @@ const processData = async () => {
         div.attr('data-year', d.Year);
         div
           .html(`${d.Name}: ${d.Nationality}<br/>Year: ${d.Year}` +
-              '<br/>' +
-              'Year: ' +
-              d.Year +
               ', Time: ' +
               timeFormat(times[i]) +
               (d.Doping ? '<br/><br/>' + d.Doping : '')
