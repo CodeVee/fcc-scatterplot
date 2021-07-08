@@ -54,7 +54,8 @@ const processData = async () => {
         div.style('opacity', 0.9);
         div.attr('data-year', d.Year);
         div
-          .html(`${d.Name}: ${d.Nationality}<br/>Year: ${d.Year}` +
+          .html(`${d.Name}: ${d.Nationality}<br/>Year: ${d.Year}, 
+          Time: ${timeFormat(times[i])}${d.Doping ? '<br/><br/>' + d.Doping : ''}` +
               ', Time: ' +
               timeFormat(times[i]) +
               (d.Doping ? '<br/><br/>' + d.Doping : '')
