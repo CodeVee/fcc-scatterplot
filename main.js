@@ -58,9 +58,7 @@ const processData = async () => {
           Time: ${timeFormat(times[i])}${d.Doping ? '<br/><br/>' + d.Doping : ''}`
           )
       })
-      .on('mouseout', () => {
-        div.style('opacity', 0);
-      });
+      .on('mouseout', () => div.style('opacity', 0));
 
       const legendContainer = svg.append('g').attr('id', 'legend');
 
